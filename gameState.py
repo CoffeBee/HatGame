@@ -1,0 +1,38 @@
+
+
+class Game:
+    def __init__(self, names, mode):
+        self.names = names
+        self.people_cnt = len(names)
+        self.mode = mode;
+        self.now = (0, 1)
+        self.delta = 1
+        self.inv = False
+        self.score = {}
+        for name in names:
+            self.score[name] = 0
+    def next_circle_(self):
+        """This method is update game state when people turn in pair circle"""
+        if (self.now[0] == self.people_cnt - 1):
+            self.delta += 1
+            self.delta %= self.people_cnt
+        self.now = ((self.now[0] + 1) % self.people_cnt, (self.now[0] + 1 + self.delta) % self.people_cnt)
+
+    def next_pair_(self):
+        """This method is update game state when people turn in pair mode"""
+        self.now = ((self.now[0] + 2) % self.people_cnt, (self.now[1] + 2) % self.people_cnt)
+        if (self.now == (0, 1) or self.now == (1, 0)):
+            self.inv = not self.inv;
+            self.now = (self.now[1], self.now[0])
+
+    def next(self):
+        """This method is update game state when people turn"""
+        if self.mode == 0:
+            self.next_circle_()
+        else:
+            self.next_pair_()
+
+    def get_word(self):
+        """This method is update score state"""
+        score[names[now[0]]] += 1
+        score[names[now[1]]] += 1
