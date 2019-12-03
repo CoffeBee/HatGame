@@ -1,18 +1,16 @@
+"""This module is run and configure kivy app"""
+
 from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager
+from players_screen import PlayerScreen
 
 class MyApp(App):
+    """This is main class of app"""
     def build(self):
-        return Button(
-        """помимо всего прочего, .text - будет полем объекта класса Button
-        и с ним можно будет работать в явном виде
-        (как и с другими параметрами-полями из примера)"""
-    		text="дрыц-тыц",
-        """следующие два аргумента принимают функции, которые должны принимать
-        один (почти один) аргумент - саму кнопку (назовём аргумент instance)
-        реализуйте их как методы класса MyApp"""
-    	)
-    def callback_press(self, instance):
-        pass
+        """This method is build app"""
+        root = ScreenManager()
+        root.add_widget(PlayerScreen(name="players"))
+        return root
 
 if __name__ == '__main__':
     MyApp().run()
