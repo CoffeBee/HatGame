@@ -1,6 +1,5 @@
 """This module is run and configure kivy app"""
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager
 from players_screen import PlayerScreen
 from game_screenmanager import GameScreenManager
 from game_screen import GameScreen

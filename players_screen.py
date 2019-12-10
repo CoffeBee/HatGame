@@ -6,7 +6,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen, SlideTransition
 from kivy.uix.button import Button
 from kivy.uix.label import Label
-from kivy.graphics import Color, Rectangle
+
 class PlayerScreen(Screen):
     """No ideas"""
     def __init__(self, **kwargs):
@@ -32,7 +32,7 @@ class PlayerScreen(Screen):
         """Method to configure status bar add interface"""
         res_box = BoxLayout(orientation='horizontal', size_hint=(1, .1))
         res_box.add_widget(Button(text='Готово', on_press=self.next_callback,
-                           size_hint=(.2, 1)))
+                                  size_hint=(.2, 1)))
         res_box.add_widget(Button(text='Отмена', on_press=self.prev_callback,
                                   size_hint=(.2, 1)))
         return res_box
@@ -47,10 +47,11 @@ class PlayerScreen(Screen):
         self.manager.names.append(player_name)
 
     def next_callback(self, instance):
-        """Method to pudh next window"""
+        """Method to push next window"""
         self.manager.transition = SlideTransition(direction="left")
         self.manager.current = self.manager.next()
 
     def prev_callback(self, instance):
+        """This method is push prev window"""
         self.manager.transition = SlideTransition(direction="right")
         self.manager.current = self.manager.previous()

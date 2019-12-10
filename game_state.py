@@ -44,4 +44,5 @@ class Game:
         return (self.names[self.now[0]], self.names[self.now[1]])
 
     def now_players_scroe(self):
+        """This method is return score"""
         return (self.score[self.names[self.now[0]]], self.score[self.names[self.now[1]]])
