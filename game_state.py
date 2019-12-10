@@ -38,3 +38,10 @@ class Game:
         """This method is update score state"""
         self.score[self.names[self.now[0]]] += 1
         self.score[self.names[self.now[1]]] += 1
+
+    def now_play(self):
+        """This method is return who is now playing"""
+        return (self.names[self.now[0]], self.names[self.now[1]])
+
+    def now_players_scroe(self):
+        return (self.score[self.names[self.now[0]]], self.score[self.names[self.now[1]]])

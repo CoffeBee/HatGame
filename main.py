@@ -2,13 +2,15 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager
 from players_screen import PlayerScreen
-
+from game_screenmanager import GameScreenManager
+from game_screen import GameScreen
 class MyApp(App):
     """This is main class of app"""
     def build(self):
         """This method is build app"""
-        root = ScreenManager()
+        root = GameScreenManager()
         root.add_widget(PlayerScreen(name="players"))
+        root.add_widget(GameScreen(name="players2"))
         return root
 
 if __name__ == '__main__':
