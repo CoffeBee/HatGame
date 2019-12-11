@@ -19,6 +19,9 @@ class DurationClock(Label):
             self.parent.children[1].text = 'Начать'
             self.parent.children[1].unbind(on_press=self.parent.parent.get)
             self.parent.children[1].bind(on_press=self.parent.parent.start_game)
+        elif int(index) <= 3:
+            self.text = self.text.split('\n')[0]
+            self.text += '\nОсталось {} секунд, одна попытка на угодывание'.format(index)
         else:
             self.text = self.text.split('\n')[0]
             self.text += '\nОсталось {} секунд'.format(index)
@@ -30,7 +33,7 @@ class GameScreen(Screen):
     def __init__(self, **kwargs):
         super(GameScreen, self).__init__(**kwargs)
         self.game = Game(['DEFAULT', 'DEFAULT'], 0)
-        self.words = open('dictionary').readlines()
+        self.words = open('dictionaries/ProgrammingWord').readlines()
         self.timer = sched.scheduler(time.time, time.sleep)
         root_box = BoxLayout(orientation="vertical")
         root_box.add_widget(self.configure_player_now_bar_())
@@ -43,7 +46,7 @@ class GameScreen(Screen):
 
     def on_enter(self, *largs):
         """This method is config game when window is push"""
-        self.words = open(self.manager.dicts).readlines()
+        self.words = open('dictionaries/' + self.manager.dicts).readlines()
         self.game = Game(self.manager.names, self.manager.mode)
         self.upd()
 
@@ -79,6 +82,7 @@ class GameScreen(Screen):
 
     def exit(self, instance):
         """This method is push prev window"""
+
         self.manager.transition = SlideTransition(direction="right")
         self.manager.current = self.manager.previous()
 
@@ -96,5 +100,5 @@ class GameScreen(Screen):
         instance.parent.children[2].text = random.choice(self.words)
         instance.bind(on_press=self.get)
         instance.unbind(on_press=self.start_game)
-        for i in range(30, -1, -1):
-            Clock.schedule_once(partial(instance.parent.children[2].update, str(i)), 5 - i)
+        for i in range(33, -1, -1):
+            Clock.schedule_once(partial(instance.parent.children[2].update, str(i)), 33 - i)

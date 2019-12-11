@@ -1,5 +1,6 @@
 """This module contains PlayerScreen class"""
-
+from os import listdir
+from os.path import isfile, join
 from kivy.uix.textinput import TextInput
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
@@ -20,21 +21,21 @@ class PlayerScreen(Screen):
 
     def config_player_add_inteface_(self):
         """Method to configure player add interface"""
-        dicts = ['swift_dict', 'dictionary']
-        dropdown = DropDown()
-        for index in range(2):
-            btn = Button(text=dicts[index], size_hint_y=None, height=44)
-            btn.bind(on_release=lambda btn: dropdown.select(btn.text))
-            dropdown.add_widget(btn)
-        mainbutton = Button(text='choose dict', size_hint=(.3, 1))
-        mainbutton.bind(on_release=dropdown.open)
-        dropdown.bind(on_select=lambda instance, x: setattr(mainbutton, 'text', x))
-        dropdown.bind(on_select=self.upd)
+        dicts = [f for f in listdir('dictionaries/') if isfile(join('dictionaries/', f))]
+        dict_dropdown = DropDown()
+        for i in range(len(dicts)):
+            dict_button = Button(text=dicts[index], size_hint_y=None, height=44)
+            dict_button.bind(on_release=lambda btn: dict_dropdown.select(dict_button.text))
+            dict_dropdown.add_widget(dict_button)
+        dict_main_button = Button(text='choose dict', size_hint=(.3, 1))
+        dict_main_button.bind(on_release=dict_dropdown.open)
+        dict_dropdown.bind(on_select=lambda instance, x: setattr(dict_main_button, 'text', x))
+        dict_dropdown.bind(on_select=self.upd)
         add_user_box = BoxLayout(orientation="horizontal", size_hint=(1, .05))
         name_input = TextInput(text='', size_hint=(.5, 1))
         add_button = Button(text='add', size_hint=(.2, 1),
                             on_press=self.add_callback)
-        add_user_box.add_widget(mainbutton)
+        add_user_box.add_widget(dict_main_button)
         add_user_box.add_widget(name_input)
         add_user_box.add_widget(add_button)
         return add_user_box
@@ -77,5 +78,9 @@ class PlayerScreen(Screen):
 
     def prev_callback(self, instance):
         """This method is push prev window"""
+        self.manager.dicts = ''
+        self.manager.names = []
+        self.manager.mode = 0
+        self.children[0].children[1].clear_widgets()
         self.manager.transition = SlideTransition(direction="right")
         self.manager.current = self.manager.previous()
