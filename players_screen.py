@@ -23,7 +23,7 @@ class PlayerScreen(Screen):
         """Method to configure player add interface"""
         dicts = [f for f in listdir('dictionaries/') if isfile(join('dictionaries/', f))]
         dict_dropdown = DropDown()
-        for i in range(len(dicts)):
+        for index in range(len(dicts)):
             dict_button = Button(text=dicts[index], size_hint_y=None, height=44)
             dict_button.bind(on_release=lambda btn: dict_dropdown.select(dict_button.text))
             dict_dropdown.add_widget(dict_button)
